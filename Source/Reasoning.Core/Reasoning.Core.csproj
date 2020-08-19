@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Lukasz Wardzala (https://github.com/lwardzala)</Authors>
+    <Description>Reasoning engine that provides knowledge base builders and basic reasoning service.
+https://github.com/lwardzala/Business-Rules-Reasoning-System</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright (c) 2020 Lukasz Wardzala</Copyright>
+    <PackageProjectUrl>https://github.com/lwardzala/Business-Rules-Reasoning-System</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/lwardzala/Business-Rules-Reasoning-System</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>reasoning, business rules, workflows, reasoning service, horn clause, deduction, hypothesis testing</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Json.Abstraction" Version="1.0.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+  </ItemGroup>
+
+</Project>

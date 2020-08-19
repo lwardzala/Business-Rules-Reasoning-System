@@ -1,0 +1,351 @@
+{
+	"info": {
+		"_postman_id": "61c8f3d2-c376-4916-a261-5630878dd664",
+		"name": "Business Rules Reasoning Host",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/knowledge-base",
+			"item": [
+				{
+					"name": "Knowledge Base",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"knowledgeBase\": {\r\n        \"id\": \"knowledgeBase6\",\r\n        \"name\": \"Knowledge Base 1\",\r\n        \"description\": \"Testing reasoning service\",\r\n        \"ruleSet\": [\r\n            {\r\n                \"conclusion\": {\r\n                    \"id\": \"conclusion1\",\r\n                    \"value\": \"Conclusion 1\"\r\n                },\r\n                \"predicates\": [\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var1\",\r\n                            \"name\": \"var1\",\r\n                            \"value\": 3\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var1\",\r\n                            \"name\": \"var1\",\r\n                            \"value\": 3\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    },\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var2\",\r\n                            \"name\": \"var2\",\r\n                            \"value\": \"OK\"\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var2\",\r\n                            \"name\": \"var2\",\r\n                            \"value\": \"OK\"\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    },\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var3\",\r\n                            \"name\": \"var3\",\r\n                            \"value\": [\r\n                                \"opt1\",\r\n                                \"opt2\"\r\n                            ]\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var3\",\r\n                            \"name\": \"var3\",\r\n                            \"value\": [\r\n                                \"opt1\",\r\n                                \"opt2\"\r\n                            ]\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    }\r\n                ],\r\n                \"result\": false,\r\n                \"evaluated\": false\r\n            },\r\n            {\r\n                \"conclusion\": {\r\n                    \"id\": \"conclusion1\",\r\n                    \"value\": \"Conclusion 1\"\r\n                },\r\n                \"predicates\": [\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var1\",\r\n                            \"name\": \"var1\",\r\n                            \"value\": 3\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var1\",\r\n                            \"name\": \"var1\",\r\n                            \"value\": 4\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    },\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var2\",\r\n                            \"name\": \"var2\",\r\n                            \"value\": \"OK\"\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var2\",\r\n                            \"name\": \"var2\",\r\n                            \"value\": \"OK\"\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    },\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var3\",\r\n                            \"name\": \"var3\",\r\n                            \"value\": [\r\n                                \"opt1\"\r\n                            ]\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var3\",\r\n                            \"name\": \"var3\",\r\n                            \"value\": [\r\n                                \"opt1\"\r\n                            ]\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    }\r\n                ],\r\n                \"result\": false,\r\n                \"evaluated\": false\r\n            }\r\n        ]\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/knowledge-base",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"knowledge-base"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Knowledge Base",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44384/api/knowledge-base/knowledgeBase4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"knowledge-base",
+								"knowledgeBase4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Knowledge Base",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"knowledgeBase\": {\r\n        \"id\": \"knowledgeBase2\",\r\n        \"name\": \"Knowledge Base 1 update 2\",\r\n        \"description\": \"Testing reasoning service\",\r\n        \"ruleSet\": [\r\n            {\r\n                \"conclusion\": {\r\n                    \"id\": \"conclusion1\",\r\n                    \"name\": \"Conclusion 1\"\r\n                },\r\n                \"predicates\": [\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var1\",\r\n                            \"name\": \"var1\",\r\n                            \"value\": 3\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var1\",\r\n                            \"name\": \"var1\",\r\n                            \"value\": 3\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    },\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var2\",\r\n                            \"name\": \"var2\",\r\n                            \"value\": \"OK\"\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var2\",\r\n                            \"name\": \"var2\",\r\n                            \"value\": \"OK\"\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    },\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var3\",\r\n                            \"name\": \"var3\",\r\n                            \"value\": [\r\n                                \"opt1\",\r\n                                \"opt2\"\r\n                            ]\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var3\",\r\n                            \"name\": \"var3\",\r\n                            \"value\": [\r\n                                \"opt1\",\r\n                                \"opt2\"\r\n                            ]\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    }\r\n                ],\r\n                \"result\": false,\r\n                \"evaluated\": false\r\n            },\r\n            {\r\n                \"conclusion\": {\r\n                    \"id\": \"conclusion1\",\r\n                    \"name\": \"Conclusion 1\"\r\n                },\r\n                \"predicates\": [\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var1\",\r\n                            \"name\": \"var1\",\r\n                            \"value\": 3\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var1\",\r\n                            \"name\": \"var1\",\r\n                            \"value\": 4\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    },\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var2\",\r\n                            \"name\": \"var2\",\r\n                            \"value\": \"OK\"\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var2\",\r\n                            \"name\": \"var2\",\r\n                            \"value\": \"OK\"\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    },\r\n                    {\r\n                        \"leftTerm\": {\r\n                            \"id\": \"var3\",\r\n                            \"name\": \"var3\",\r\n                            \"value\": [\r\n                                \"opt1\"\r\n                            ]\r\n                        },\r\n                        \"rightTerm\": {\r\n                            \"id\": \"var3\",\r\n                            \"name\": \"var3\",\r\n                            \"value\": [\r\n                                \"opt1\"\r\n                            ]\r\n                        },\r\n                        \"operator\": \"Equal\",\r\n                        \"result\": false,\r\n                        \"evaluated\": false\r\n                    }\r\n                ],\r\n                \"result\": false,\r\n                \"evaluated\": false\r\n            }\r\n        ]\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/knowledge-base/knowledgeBase2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"knowledge-base",
+								"knowledgeBase2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Knowledge Base",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44384/api/knowledge-base/knowledgeBase2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"knowledge-base",
+								"knowledgeBase2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/api/reasoning-task",
+			"item": [
+				{
+					"name": "Reasoning Task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"knowledgeBaseId\": \"knowledgeBase5\",\r\n    \"reasoningMethod\": \"Deduction\",\r\n    \"description\": \"Test reasoning task\",\r\n    \"sources\": [\r\n        {\r\n            \"variableIds\": [ \"var1\", \"var2\", \"var3\" ],\r\n            \"request\": {\r\n                \"method\": \"GET\",\r\n                \"uri\": \"https://localhost:44384/some-resource\"\r\n            }\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/reasoning-task",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"reasoning-task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reasoning Task",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/reasoning-task/5f3c27ec5035ca766b03030d",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"reasoning-task",
+								"5f3c27ec5035ca766b03030d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reasoning Task Detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/reasoning-task/5f26eff039180406a34301c1/detail",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"reasoning-task",
+								"5f26eff039180406a34301c1",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reasoning Task Cancel",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/reasoning-task/5f26eff039180406a34301c1/cancel",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"reasoning-task",
+								"5f26eff039180406a34301c1",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reasoning Task Resume",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/reasoning-task/5f26eff039180406a34301c1/resume",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"reasoning-task",
+								"5f26eff039180406a34301c1",
+								"resume"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reasoning Task Set Variables",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"variables\": [\r\n        {\r\n            \"id\": \"var1\",\r\n            \"name\": \"var1\",\r\n            \"value\": 3\r\n        },\r\n        {\r\n            \"id\": \"var2\",\r\n            \"name\": \"var2\",\r\n            \"value\": \"OK\"\r\n        },\r\n        {\r\n            \"id\": \"var3\",\r\n            \"name\": \"var3\",\r\n            \"value\": [\r\n                \"opt1\",\r\n                \"opt2\"\r\n            ]\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/reasoning-task/5f257d124a604267ba8aedc9/variables",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"reasoning-task",
+								"5f257d124a604267ba8aedc9",
+								"variables"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reasoning Task",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44384/api/reasoning-task/5f26eff039180406a34301c1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44384",
+							"path": [
+								"api",
+								"reasoning-task",
+								"5f26eff039180406a34301c1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
