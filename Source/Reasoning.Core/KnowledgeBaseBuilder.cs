@@ -46,14 +46,16 @@ namespace Reasoning.Core
 
     public class RuleBuilder
     {
-        private IRule _rule;
+        private readonly IRule _rule;
 
         public RuleBuilder()
         {
-            _rule = new Rule();
-            _rule.Predicates = new List<IPredicate>();
-            _rule.Result = false;
-            _rule.Evaluated = false;
+            _rule = new Rule
+            {
+                Predicates = new List<IPredicate>(),
+                Result = false,
+                Evaluated = false
+            };
         }
 
         public RuleBuilder SetConclusion(IVariable ruleConclusion)
@@ -73,15 +75,17 @@ namespace Reasoning.Core
 
     public class PredicateBuilder
     {
-        private IPredicate _predicate;
+        private readonly IPredicate _predicate;
 
         public PredicateBuilder()
         {
-            _predicate = new Predicate();
-            _predicate.LeftTerm = new Variable();
-            _predicate.RightTerm = new Variable();
-            _predicate.Result = false;
-            _predicate.Evaluated = false;
+            _predicate = new Predicate
+            {
+                LeftTerm = new Variable(),
+                RightTerm = new Variable(),
+                Result = false,
+                Evaluated = false
+            };
         }
 
         public PredicateBuilder ConfigurePredicate(string variableId, OperatorType operatorType, object rightTermValue)
@@ -113,5 +117,35 @@ namespace Reasoning.Core
         }
 
         public IPredicate Unwrap() => _predicate;
+    }
+
+    public class VariableBuilder
+    {
+        private readonly IVariable _variable;
+
+        public VariableBuilder()
+        {
+            _variable = new Variable();
+        }
+
+        public VariableBuilder SetId(string id)
+        {
+            _variable.Id = id;
+            return this;
+        }
+
+        public VariableBuilder SetName(string name)
+        {
+            _variable.Name = name;
+            return this;
+        }
+
+        public VariableBuilder SetValue(object value)
+        {
+            _variable.Value = value;
+            return this;
+        }
+
+        public IVariable Unwrap() => _variable;
     }
 }

@@ -3,9 +3,11 @@
 Cross-Platform Business Rules Reasoning System. Is a simple reasoning tool based on implication form of the Horn clause.
 Provides integration between various systems and supports workflows.
 
+Automate decision processes with the Business Rules Reasoning System!
+
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](License)
 
-There are two parts of the Reasoning system:
+Actually the Reasoning System contains:
 - Reasoning.Core - A library that provides knowledge base builders and base reasoning service. Can be used independently in any .NET project;
 - Reasoning.Host - The biggest part that provides reasoning task management and integration.
 
@@ -18,7 +20,7 @@ There are two parts of the Reasoning system:
 - Reasoning.Host can be runned on Windows/Linux/macOS;
 - MongoDB integration.
 
-If you still don't know how you can utilize a reasoning system, take a look on [Use cases](#use-cases) part.
+If you are still considering how would you utilize a reasoning system, take a look on [Use cases](#use-cases) part.
 
 ## Table of content
 
@@ -36,6 +38,7 @@ If you still don't know how you can utilize a reasoning system, take a look on [
     - [Reasoning Method](#reasoning-method)
     - [Reasoning Service](#reasoning-service)
   - [Reasoning.Host](#reasoninghost)
+    - [Installation](#installation)
     - [REST API](#rest-api)
     - [Knowledge Base](#knowledge-base-1)
     - [Reasoning Task](#reasoning-task)
@@ -58,7 +61,7 @@ https://www.nuget.org/packages/Reasoning.Core/
 
 ### Predicates
 
-Predicates are the smallest structures and are a represent equation.
+Predicate is the smallest structure and represents equation.
 They are built from: LeftTerm, Operator and RightTerm.
 
 So representation of an equation:
@@ -66,7 +69,7 @@ So representation of an equation:
 age >= 18
 ```
 
-would be:
+Will be:
 ```json
 {
   "leftTerm": {
@@ -83,9 +86,20 @@ would be:
 }
 ```
 
+With PredicateBuilder:
+```csharp
+using Reasoning.Core;
+using Reasoning.Core.Contracts;
+
+new PredicateBuilder()
+    .ConfigurePredicate("age", OperatorType.GreaterOrEqual, 18)
+    .SetLeftTermValue(23) // optional for left term
+    .Unwrap()
+```
+
 ### Rules
 
-Rules are the middle structures in Knowledge Base. Each rule has a set of predicates and a conclusion.
+Rule is the middle structure in Knowledge Base. Each rule has a set of predicates and a conclusion.
 A rule is being evaluated during reasoning process by evaluating it's predicates. If any predicate's evaluation result is false, then the rule's evaluation result is false.
 
 So representation of rule:
@@ -93,7 +107,7 @@ So representation of rule:
 age >= 18 -> passenger = 'adult'
 ```
 
-would be:
+Will be:
 ```json
 {
   "predicates": [
@@ -117,6 +131,24 @@ would be:
     "value": "adult"
   }
 }
+```
+
+With RuleBuilder:
+```csharp
+using Reasoning.Core;
+using Reasoning.Core.Contracts;
+
+new RuleBuilder()
+    .SetConclusion(new VariableBuilder()
+        .SetId("passenger")
+        .SetName("Passenger type")
+        .SetValue("adult") // required for conclusion
+        .Unwrap())
+    .AddPredicate(new PredicateBuilder()
+        .ConfigurePredicate("age", OperatorType.GreaterOrEqual, 18)
+        .SetLeftTermValue(23) // optional for left term
+        .Unwrap())
+    .Unwrap()
 ```
 
 ### Knowledge Base
@@ -204,6 +236,45 @@ age < 5 -> passenger = "toddler"
 ]
 ```
 
+With KnowledgeBaseBuilder:
+```csharp
+new KnowledgeBaseBuilder()
+    .SetId("knowledgeBase1")
+    .SetName("Knowledge Base 1")
+    .SetDescription("Passengers type principles")
+    .AddRule(new RuleBuilder()
+        .SetConclusion(new VariableBuilder()
+            .SetId("passenger")
+            .SetValue("adult")
+            .Unwrap())
+        .AddPredicate(new PredicateBuilder()
+            .ConfigurePredicate("age", OperatorType.GeaterOrEqual, 18)
+            .Unwrap())
+        .Unwrap())
+    .AddRule(new RuleBuilder()
+        .SetConclusion(new VariableBuilder()
+            .SetId("passenger")
+            .SetValue("child")
+            .Unwrap())
+        .AddPredicate(new PredicateBuilder()
+            .ConfigurePredicate("age", OperatorType.LesserThan, 18)
+            .Unwrap())
+        .AddPredicate(new PredicateBuilder()
+            .ConfigurePredicate("age", OperatorType.GreaterOrEqual, 5)
+            .Unwrap())
+        .Unwrap())
+    .AddRule(new RuleBuilder()
+        .SetConclusion(new VariableBuilder()
+            .SetId("passenger")
+            .SetValue("toddler")
+            .Unwrap())
+        .AddPredicate(new PredicateBuilder()
+            .ConfigurePredicate("age", OperatorType.LesserThan, 5)
+            .Unwrap())
+        .Unwrap())
+    .Unwrap();
+```
+
 </p>
 </details>
 
@@ -222,7 +293,7 @@ Value types are comparable with each other.
 
 ### Supported operators
 
-Below operators are supported:
+<u>Available operators:</u>
 
 - Equal;
 - NotEqual;
@@ -241,14 +312,21 @@ Below operators are supported:
 
 Reasoning process is a state of reasoning. It contains all necessary data for reasoning like: Reasoning Method, Knowledge Base, State, Reasoned Items, Evaluation Message and Hypothesis.
 
-Possible State:
+For initializing Reasoning Process use ReasoningProcessFactory:
+```csharp
+using Reasoning.Core;
+
+ReasoningProcessFactory.CreateInstance(knowledgeBase, ReasoningMethod.HypothesisTesting, hypothesis);
+```
+
+<u>Possible State:</u>
 
 - INITIALIZED;
 - STARTED;
 - STOPPED;
 - FINISHED.
 
-Possible Evaluation Message:
+<u>Possible Evaluation Message:</u>
 
 - NONE - initialized or started;
 - PASSED - at least one rule is true or hypothesis is confirmed;
@@ -260,7 +338,7 @@ When a rule or hypothesis is true, it's conclusion is being added to Reasoned It
 
 ### Reasoning Method
 
-There are two modes of reasoning:
+<u>There are two reasoning modes:</u>
 
 - Deduction - tries to reason as many conclusions as possible;
 - HypothesisTesting - checks if any rule can confirm the hypothesis (any rule that is true and it's conclusion is same as the hypothesis).
@@ -283,6 +361,52 @@ The Host enqueues provided Reasoning Tasks and tries to resolve them step by ste
 
 Every task is being resolved asynchronously by Background Worker. It's possible to check the current reasoning state only by requesting the detail by Reasoning Task Id.
 
+### Installation
+
+1. Install .NET Core 3.1
+   
+To run the Host application, it's needed to install .NET Core SDK (for project compilation) or .NET Core Runtime (for running compiled app on a server)
+https://dotnet.microsoft.com/download/dotnet-core/3.1
+
+2. Configure database connection string and app address
+   
+Put MongoDB connection string in Source/Reasoning.Host/appsettings.json
+
+appsettings.json
+```json
+{
+  "MongoDatabaseSettings": {
+    "KnowledgeBaseCollectionName": "knowledge_base",
+    "ReasoningTaskCollectionName": "reasoning_tasks",
+    "VariableSourceCollectionName": "variable_sources",
+    "VariableCollectionName": "variables",
+    "ConnectionString": "put-your-mongodb-url-here", // Your MongoDB connection string
+    "DatabaseName": "reasoning"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "Urls": "https://0.0.0.0:5001" // Configure the application address
+}
+```
+
+3. Compile and run the app
+   
+Run development mode bu using
+```
+dotnet run
+```
+
+Or build a production package
+```
+dotnet publish
+```
+
 ### REST API
 For more see: [Postman Collection](PostmanCollection.json)
 
@@ -290,10 +414,10 @@ For more see: [Postman Collection](PostmanCollection.json)
 
 The Host app stores all provided Knowledge Bases. It's possible to add, update and delete them from database.
 
-To get Knowledge Base use:
+<u>To get Knowledge Base use:</u>
 - GET /api/knowledge-base/{id}
 
-To add a Knowledge Base use:
+<u>To add a Knowledge Base use:</u>
 - <p>POST /api/knowledge-base/
 <details><summary>Sample body</summary>
 <p>
@@ -433,7 +557,7 @@ To add a Knowledge Base use:
 </p>
 </details></p>
 
-To update Knowledge Base use:
+<u>To update Knowledge Base use:</u>
 - <p>PUT /api/knowledge-base/{id}
 <details><summary>Sample body</summary>
 <p>
@@ -573,7 +697,7 @@ To update Knowledge Base use:
 </p>
 </details></p>
 
-To delete Knowledge Base use:
+<u>To delete Knowledge Base use:</u>
 - DELETE /api/knowledge-base/{id}
 
 ### Reasoning Task
@@ -582,13 +706,13 @@ Reasoning Tasks relate to an existing Knowledge Base by Id. Also there is a poss
 - Sources - a collection of variable source objects that contain variable ids that can be obtained and a request pattern object;
 - Actions - a collection of request patterns and reasoned items (conclusions) that indicate when the requests should be executed.
 
-To get Reasoning Task use:
+<u>To get Reasoning Task use:</u>
 - GET /api/reasoning-task/{id}
 
-To get detailed Reasoning Task use:
+<u>To get detailed Reasoning Task use:</u>
 - GET /api/reasoning-task/{id}/detail
 
-To add Reasoning Task use:
+<u>To add Reasoning Task use:</u>
 - <p>POST /api/reasoning-task/
 <details><summary>Sample body</summary>
 <p>
@@ -613,7 +737,7 @@ To add Reasoning Task use:
 </p>
 </details></p>
 
-To manually set variables use:
+<u>To manually set variables use:</u>
 - <p>PUT /api/reasoning-task/{id}/variables (after providing variables, system tries to resume reasoning automatically)
 <details><summary>Sample body</summary>
 <p>
@@ -646,12 +770,12 @@ To manually set variables use:
 </p>
 </details></p>
 
-To delete Reasoning Task use:
+<u>To delete Reasoning Task use:</u>
 - DELETE /api/reasoning-task/{id}
 
 ## Use cases
 
-The Reasoning System can be used when:
+The Reasoning System can be used whenever you want to automate a decision process:
 
 1. You have a production hall and want to automate production process. You can connect the Host application with production machine's API to avoid any to be idle;
 

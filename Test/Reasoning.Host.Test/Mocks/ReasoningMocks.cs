@@ -1,6 +1,5 @@
 ﻿using Reasoning.Core;
 using Reasoning.Core.Contracts;
-using Reasoning.Core.Models;
 using Reasoning.MongoDb.Models;
 
 namespace Reasoning.Host.Test.Mocks
@@ -9,13 +8,12 @@ namespace Reasoning.Host.Test.Mocks
     {
         public static IReasoningProcess GetReasoningProcess()
         {
-            return new ReasoningProcess
-            {
-                ReasoningMethod = ReasoningMethod.Deduction,
-                KnowledgeBase = GetKnowledgeBase()
-            };
+            return ReasoningProcessFactory.CreateInstance(
+                GetKnowledgeBase(),
+                ReasoningMethod.Deduction,
+                null);
         }
-
+        
         public static IKnowledgeBase GetKnowledgeBase()
         {
             return new KnowledgeBaseBuilder()
@@ -23,7 +21,10 @@ namespace Reasoning.Host.Test.Mocks
                 .SetName("Knowledge Base 1")
                 .SetDescription("Testing reasoning service")
                 .AddRule(new RuleBuilder()
-                    .SetConclusion(new Variable("conclusion1", 1))
+                    .SetConclusion(new VariableBuilder()
+                        .SetId("conclusion1")
+                        .SetValue(1)
+                        .Unwrap())
                     .AddPredicate(new PredicateBuilder()
                         .ConfigurePredicate("var1", OperatorType.Equal, 3)
                         .SetLeftTermValue(3)
@@ -38,7 +39,10 @@ namespace Reasoning.Host.Test.Mocks
                         .Unwrap())
                     .Unwrap())
                 .AddRule(new RuleBuilder()
-                    .SetConclusion(new Variable("conclusion2", 2))
+                    .SetConclusion(new VariableBuilder()
+                        .SetId("conclusion2")
+                        .SetValue(2)
+                        .Unwrap())
                     .AddPredicate(new PredicateBuilder()
                         .ConfigurePredicate("var1", OperatorType.Equal, 3)
                         .SetLeftTermValue(3)
