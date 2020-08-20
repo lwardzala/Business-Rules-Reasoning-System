@@ -236,6 +236,9 @@ age < 5 -> passenger = "toddler"
 ]
 ```
 
+</p>
+</details>
+
 With KnowledgeBaseBuilder:
 ```csharp
 new KnowledgeBaseBuilder()
@@ -274,9 +277,6 @@ new KnowledgeBaseBuilder()
         .Unwrap())
     .Unwrap();
 ```
-
-</p>
-</details>
 
 ### Variables and supported values
 
